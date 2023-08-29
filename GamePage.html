@@ -1,0 +1,84 @@
+<html>
+<head>
+</head>
+<body>
+Game Page!
+
+<script type="text/javascript">
+hints = [
+	[0,1,1,1,1,1,1,0,1],
+	[1,0,1,0,0,0,1,0,1]
+];
+
+correct = [
+	[0,0,1,0,0,0,1,1,1]
+];
+
+function onoff(id){
+	target = document.getElementById(id);
+	currentvalue = target.value;
+	if(currentvalue == 0){
+		target.value=1;
+	}else{
+		target.value=0;
+	}
+}
+
+function HintsTableCreate() {
+	const body = document.body,
+		tbl = document.createElement('table');
+	tbl.style.width = '100px';
+	tbl.style.border = '1px solid black';
+
+	for (let i = 0; i < hints.length; i++) {
+		const tr = tbl.insertRow();
+		for (let j = 0; j < hints[i].length; j++) {
+			const td = tr.insertCell();
+			td.appendChild(document.createTextNode(hints[i][j]));
+			td.style.border = '1px solid black';
+		}
+	}
+  body.appendChild(tbl);
+}
+
+function AnswerButtonsCreate() {
+	for (let i = 0; i < correct[0].length; i++){
+		var button = document.createElement("input");
+		button.id = "button"+i;
+		button.type = "button";
+		button.value = 0;
+		button.onclick = (function(index) {
+            return function() {
+                onoff("button" + index);
+            };
+        })(i);
+		document.body.appendChild(button);
+	}
+}
+
+function CheckAnswer(){
+	solution = true;
+	for (let i = 0; i < correct[0].length; i++) {
+		console.log("checking button"+i+":"+"expected: "+correct[0][i]+" | is: "+document.getElementById("button"+i).value)
+		if (document.getElementById("button"+i).value != correct[0][i]) {
+			solution = false;
+		}
+	}
+	
+	if(solution){
+		location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUjcmljayBhc3RsZXkgbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D";
+	}else{
+		alert("Falsch!");
+	}
+}
+
+HintsTableCreate();
+AnswerButtonsCreate();
+
+</script>
+
+<br>
+<input type="button" value="check" id="check" onclick="CheckAnswer();">
+
+</body>
+</html>
