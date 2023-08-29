@@ -24,7 +24,8 @@ correct = [
 In this example, the game generates four rows of hints, gradually progressing from "0,0,0,0" to "1,0,0,0" in each row. Players need to interact with the buttons to align them with the desired logic, such as `[1][0][0][0]`. Upon clicking the check button, the values are evaluated. Incorrect combinations trigger a popup alert, while a correct solution leads to redirection (e.g., advancing to the next level or a celebratory YouTube video).
 
 ## Acknowledgements
-I extend my gratitude to R.K.H. for the request to develop this game and for granting permission to release it under my name. The initial version was completed in approximately two hours.
+I extend my gratitude to R.K.H. for the request to develop this game and for granting permission to release it under my name. The initial version was completed in approximately two hours.\
+And a smol thanks to ChatGPT for assisting in debugging why the `onclick` functions for each button didn't work. Great Tool! Also StackOverflow provided a lot of answers to my initial questions for this project.
 
 ## Future Enhancements
 Contributions to further evolve this project are welcomed through forks or pull requests. Several ideas and requests have already emerged:
