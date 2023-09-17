@@ -1,0 +1,105 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+/*
+	Prepare your game:
+	1.	Define your possible values in the possible_values Array.
+		- You can either use Numbers directly or Strings if you use the "" notation.
+		- Do NOT use a value twice, as this breaks the cycling function.
+	2.	Set up your hints.
+		- These Values need to be Numbers or Strings (use the "" notation).
+	3.	Note down the correct answer.
+		- The values are either Numbers or String, for now, only one Row is supported.
+		- The length of the answers array does not need to match the hints arrays length.
+		- Make sure to also have the values in the possible_values array at least once.
+	
+	**Make sure, that your answer only contains values that are also in the possible_values Array!**
+	Check the `GamePageBinary` if you only need 0/1 as input.
+
+*/
+possible_values = [0, 0.2,0.5,1,"a"].map(String);
+
+hints = [
+	[0,0,0,0,0,"a",1,0.5,0.2],
+	["the","line","above","is","the","correct","answer","!","!"],
+	["hello","world",1,0,0,0,1,0,😀]
+];
+
+correct = [
+	[0,0,0,0,0,"a",1,0.5,0.2],
+];
+
+function state_switch(id){
+	targetElement = document.getElementById(id);
+	currentvalue = targetElement.value;
+	currentvalue_index = possible_values.indexOf(currentvalue);
+	// catch out of bound and cycle through
+	if (currentvalue_index >= possible_values.length -1){
+		currentvalue_index = 0;
+	} else {
+		currentvalue_index = currentvalue_index + 1;
+	}
+	targetElement.value = possible_values[currentvalue_index];
+}
+
+function HintsTableCreate() {
+	const body = document.body,
+		tbl = document.createElement('table');
+	tbl.style.width = '100px';
+	tbl.style.border = '1px solid black';
+
+	for (let i = 0; i < hints.length; i++) {
+		const tr = tbl.insertRow();
+		for (let j = 0; j < hints[i].length; j++) {
+			const td = tr.insertCell();
+			td.appendChild(document.createTextNode(hints[i][j]));
+			td.style.border = '1px solid black';
+		}
+	}
+  body.appendChild(tbl);
+}
+
+function AnswerButtonsCreate() {
+	for (let i = 0; i < correct[0].length; i++){
+		var button = document.createElement("input");
+		button.id = "button"+i;
+		button.type = "button";
+		button.value = possible_values[0];
+		button.onclick = (function(index) {
+            return function() {
+                //onoff("button" + index);
+				state_switch("button" + index);
+            };
+        })(i);
+		document.body.appendChild(button);
+	}
+}
+
+function CheckAnswer(){
+	solution = true;
+	for (let i = 0; i < correct[0].length; i++) {
+		console.log("checking button"+i+":"+"expected: "+correct[0][i]+" | is: "+document.getElementById("button"+i).value)
+		if (document.getElementById("button"+i).value != correct[0][i]) {
+			solution = false;
+		}
+	}
+	
+	if(solution){
+		location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUjcmljayBhc3RsZXkgbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D";
+	}else{
+		alert("Falsch!");
+	}
+}
+
+HintsTableCreate();
+AnswerButtonsCreate();
+
+</script>
+
+<br>
+<input type="button" value="check" id="check" onclick="CheckAnswer();">
+
+</body>
+</html>
