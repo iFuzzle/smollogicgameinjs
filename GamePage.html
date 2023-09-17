@@ -69,8 +69,7 @@ function AnswerButtonsCreate() {
 		button.value = possible_values[0];
 		button.onclick = (function(index) {
             return function() {
-                //onoff("button" + index);
-				state_switch("button" + index);
+		state_switch("button" + index);
             };
         })(i);
 		document.body.appendChild(button);
